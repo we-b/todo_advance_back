@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   end
 
   def tasks_all
-    tasks = Task.all
-    render json: tasks
+    @tasks = Task.all
+    render :all_tasks
   end
 end
