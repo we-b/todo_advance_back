@@ -6,8 +6,12 @@ class GenresController < ApplicationController
   end
 
   def create
-    Genre.create(genre_params)
-    genres_all
+    genre = Genre.new(genre_params)
+    if genre.save
+      genres_all
+    else
+      render status: 422, json: genre.errors.full_messages
+    end
   end
 
   def destroy
