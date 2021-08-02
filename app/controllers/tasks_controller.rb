@@ -6,13 +6,20 @@ class TasksController < ApplicationController
   end
 
   def create
-    @result = Task.create(task_params)
-    tasks_all
+    task = Task.new(task_params)
+    if task.save
+      tasks_all
+    else
+      render status: 422, json: task.errors.full_messages
+    end
   end
 
   def update
-    @task.update(task_params)
-    tasks_all
+    if @task.update(task_params)
+      tasks_all
+    else
+      render status: 422, json: @task.errors.full_messages
+    end
   end
 
   def destroy
