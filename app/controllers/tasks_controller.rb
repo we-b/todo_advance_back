@@ -15,8 +15,11 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update(task_params)
-    tasks_all
+    if @task.update(task_params)
+      tasks_all
+    else
+      render status: 422, json: @task.errors.full_messages
+    end
   end
 
   def destroy
